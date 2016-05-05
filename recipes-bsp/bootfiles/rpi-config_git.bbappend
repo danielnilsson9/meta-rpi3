@@ -6,7 +6,7 @@ do_deploy_append() {
     echo "## enable_uart" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     echo "##     New firmware parameter" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     echo "##     RPi3 won't boot without this or disabling of BT" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-    # echo "enable_uart=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    echo "enable_uart=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
 
     if [ -n "${ENABLE_RPI3_SERIAL_CONSOLE}" ]; then
         echo "" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
@@ -18,9 +18,18 @@ do_deploy_append() {
     echo "dtparam=act_led_trigger=none" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
 	
     # move bt to mini uart
-    echo "dtoverlay=pi3-miniuart-bt" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    #echo "dtoverlay=pi3-miniuart-bt" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
 
     # stable mini uart baudrate
     echo "core_freq=250" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    
+    # remove colored spash screen
+    echo "disable_splash=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+
+    # rotate for touch screen
+    echo "lcd_rotate=2" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+
+    # disable flasing under voltage warning
+    echo "avoid_warnings=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
 
 }

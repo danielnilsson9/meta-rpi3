@@ -31,9 +31,8 @@ run_sdptool()
 
 hci_attach()
 {
-	$HCIATTACH /dev/ttyS0 bcm43xx 115200 noflow-
-	$HCICONFIG hci0 up
-	$HCICONFIG hci0 piscan
+	$HCIATTACH /dev/ttyAMA0 bcm43xx 921600 noflow-
+	$HCICONFIG hci0 up	
 }
 
 case $1 in
@@ -47,11 +46,9 @@ case $1 in
 
 	hci_attach	
 	
-	echo "starting daemon"
 	start-stop-daemon --start --background $SSD_OPTIONS
 	
 	sleep 2
-	echo "run sdptool"
 	run_sdptool
 	
   ;;
